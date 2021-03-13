@@ -1,0 +1,210 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://levels/level1/npc1/Untitled_Artwork 12.png" type="Texture" id=1]
+[ext_resource path="res://levels/level1/npc1/npc1.gd" type="Script" id=2]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 128.0
+height = 320.0
+
+[sub_resource type="Animation" id=2]
+resource_name = "idle"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("torso/remote_crown:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("torso/remote_crown:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.7, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 3.0, -1.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("torso/remote_head:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.7, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -192 ), Vector2( 0, -192 ), Vector2( 0, -192 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("torso/remote_head:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.7, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 3.0, -1.0 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "walking"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("torso/remote_head:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -192 ), Vector2( 4.76837e-07, -208 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("torso/remote_head:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.71429, 1.71429 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("torso/remote_crown:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 72, -240 ), Vector2( 72, -258 ), Vector2( 72, -271.429 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("torso/remote_crown:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.1, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 1.71429, 1.71429, 1.71429 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=4]
+animation = "idle"
+
+[sub_resource type="AnimationNodeAnimation" id=5]
+animation = "walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=6]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=7]
+
+[sub_resource type="AnimationNodeStateMachine" id=8]
+states/idle/node = SubResource( 4 )
+states/idle/position = Vector2( 101, 63 )
+states/walking/node = SubResource( 5 )
+states/walking/position = Vector2( 229, 52 )
+transitions = [ "idle", "walking", SubResource( 6 ), "walking", "idle", SubResource( 7 ) ]
+start_node = "idle"
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=9]
+
+[sub_resource type="CircleShape2D" id=10]
+radius = 472.0
+
+[node name="npc1" type="KinematicBody2D"]
+script = ExtResource( 2 )
+
+[node name="torso" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 730, 840, 590, 590 )
+region_filter_clip = true
+
+[node name="head" type="Sprite" parent="torso"]
+position = Vector2( 0, -192 )
+rotation = -0.00648736
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 890, 440, 280, 280 )
+region_filter_clip = true
+
+[node name="crown" type="Sprite" parent="torso"]
+rotation = -0.00648736
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 1270, 360, 100, 100 )
+region_filter_clip = true
+
+[node name="remote_head" type="RemoteTransform2D" parent="torso"]
+position = Vector2( 0, -192 )
+rotation = -0.00648736
+scale = Vector2( 1.01905, -0.0303739 )
+remote_path = NodePath("../head")
+update_scale = false
+
+[node name="remote_crown" type="RemoteTransform2D" parent="torso"]
+rotation = -0.00648736
+remote_path = NodePath("../crown")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/idle = SubResource( 2 )
+anims/walking = SubResource( 3 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 8 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 9 )
+
+[node name="InteractionArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea2D"]
+shape = SubResource( 10 )
+
+[node name="IdleTimer" type="Timer" parent="."]
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -170.0
+margin_top = -384.0
+margin_right = -70.0
+margin_bottom = -334.0
+rect_scale = Vector2( 3.40049, 5.69717 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "testing"
+align = 1
+autowrap = true
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="body_entered" from="InteractionArea2D" to="." method="_on_InteractionArea2D_body_entered"]
+[connection signal="timeout" from="IdleTimer" to="." method="_on_IdleTimer_timeout"]

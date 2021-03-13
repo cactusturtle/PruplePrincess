@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://global/Global.gd" type="Script" id=1]
+[ext_resource path="res://levels/level1/level_1.tscn" type="PackedScene" id=2]
+
+[node name="Global" type="Node"]
+script = ExtResource( 1 )
+
+[node name="CurrentLevel" type="Node" parent="."]
+
+[node name="level_1" parent="CurrentLevel" instance=ExtResource( 2 )]
